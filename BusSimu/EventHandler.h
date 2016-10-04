@@ -35,6 +35,7 @@ public:
 	vector<double> arrive_time;
 };
 
+//this class in package of event operation, queue and bus status
 class EventHandler {
 	static void add_event(vector<Event>& event_list, Event event) {
 		event_list.push_back(event);
