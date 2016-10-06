@@ -17,7 +17,8 @@ public:
 	Event(double event_time, EVENT_TYPE event_type, int bus_num, int stop_num) : _event_time(event_time), _event_type(event_type), _bus_num(bus_num), _stop_num(stop_num) {}
 
 	bool operator < (const Event& other) {
-		return (_event_time < other._event_time);
+		return (_event_time < other._event_time || (_event_time == other._event_time && _event_type < other._event_type) ||
+			(_event_time == other._event_time && _event_type == other._event_type && _bus_num < other._bus_num));
 	}
 };
 
@@ -32,7 +33,11 @@ public:
 
 class Bus {
 public:
+	unsigned int id;
 	vector<double> arrive_time;
+
+	Bus(){}
+	Bus(unsigned int id) : id(id){}
 };
 
 //this class in package of event operation, queue and bus status
@@ -48,7 +53,7 @@ class EventHandler {
 		return get;
 	}
 	
-	static void update_queue(vector<Queue> myQueue, int stop_num, QUEUE_STATUS status) {
+	static void update_queue(vector<Queue>& myQueue, int stop_num, QUEUE_STATUS status) {
 		if (status == ADDING) {
 			myQueue[stop_num].person++;
 			if (myQueue[stop_num].person > myQueue[stop_num].max) {
