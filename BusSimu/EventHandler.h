@@ -24,9 +24,9 @@ public:
 
 class Queue {
 public:
-	unsigned int person = 0;
-	unsigned int max = INT_MIN;
-	unsigned int min = INT_MAX;
+	int person = 0;
+	int max = INT_MIN;
+	int min = INT_MAX;
 	vector<unsigned int> sum;
 	
 };
@@ -40,8 +40,9 @@ public:
 	Bus(unsigned int id) : id(id){}
 };
 
-//this class in package of event operation, queue and bus status
-class EventHandler {
+//this class is package of event operation, queue and bus status
+static class EventHandler {
+public:
 	static void add_event(vector<Event>& event_list, Event event) {
 		event_list.push_back(event);
 		return;
@@ -72,7 +73,7 @@ class EventHandler {
 		}
 	}
 
-	static void bus_tracking(vector<Bus> myBus, int bus_num, double time) {       //be called in arrival event
+	static void bus_tracking(vector<Bus>& myBus, int bus_num, double time) {       //be called in arrival event
 		myBus[bus_num].arrive_time.push_back(time);
 	}
 };

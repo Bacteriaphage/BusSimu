@@ -75,13 +75,13 @@ void initialize(Configuration& myConfig) {  //read config file and initialize Co
 	}
 }
 
-void config(vector<Queue>& myQueue, vector<Bus> myBus, const Configuration& myConfig, vector<Event>& myEventList) { //initial container of bus and bus stop and eventList
+void config(vector<Queue>& myQueue, vector<Bus>& myBus, const Configuration& myConfig, vector<Event>& myEventList) { //initial container of bus and bus stop and eventList
 	for (int i = 0; i < myConfig.stop_num; i++) {
 		myQueue.push_back(Queue());
-		myEventList.push_back(Event(0.0, PERSON, 0, i + 1));    //Person event
+		myEventList.push_back(Event(0.0, PERSON, 0, i));    //Person event
 	}
 	for (int i = 0; i < myConfig.bus_num;i++) {
 		myBus.push_back(Bus(i+1));
-		myEventList.push_back(Event(0.0, ARRIVAL, i + 1, 0));   //Arrival event
+		myEventList.push_back(Event(0.0, ARRIVAL, i, myConfig.stop_num / myConfig.bus_num * i));   //Arrival event
 	}
 }

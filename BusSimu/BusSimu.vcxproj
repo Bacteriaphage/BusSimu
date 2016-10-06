@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="ramdon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
