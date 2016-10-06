@@ -28,12 +28,13 @@ int main() {
 			}
 			case ARRIVAL: {
 				EventHandler::add_event(myEventList, Event(clock, BOARDING, this_event._bus_num, this_event._stop_num));
-				EventHandler::bus_tracking(myBus, this_event._bus_num, clock);
+				EventHandler::bus_tracking(myBus, this_event._bus_num, clock, true);                                          //record arrive time
 				break;
 			}
 			case BOARDING: {
 				EventHandler::add_event(myEventList, Event(clock + myQueue[this_event._stop_num].person * myConfig.boarding_time
 					+ myConfig.driving_time, ARRIVAL, this_event._bus_num, (this_event._stop_num + 1) % myConfig.stop_num));
+				EventHandler::bus_tracking(myBus, this_event._bus_num, clock + myQueue[this_event._stop_num].person * myConfig.boarding_time, false);   //record depart time
 				EventHandler::update_queue(myQueue, this_event._stop_num, CLEARING);
 				break;
 			}
@@ -62,12 +63,8 @@ int main() {
 	for (int i = 0; i < myBus.size(); i++) {
 		output << "Bus No." << i+1 << ':';
 		for (int j = 0; j < myBus[i].arrive_time.size(); j++) {
-			if (!(j % 5)) {
-				output << endl;
-			}
-			output << myBus[i].arrive_time[j] << " ";
+			output << "arrive time: "<<myBus[i].arrive_time[j] << " " << "depart time: " << myBus[i].depart_time[j] << endl;
 		}
-		output << endl;
 	}
 	return 0;
 }

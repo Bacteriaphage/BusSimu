@@ -35,6 +35,7 @@ class Bus {
 public:
 	unsigned int id;
 	vector<double> arrive_time;
+	vector<double> depart_time;
 
 	Bus(){}
 	Bus(unsigned int id) : id(id){}
@@ -73,8 +74,12 @@ public:
 		}
 	}
 
-	static void bus_tracking(vector<Bus>& myBus, int bus_num, double time) {       //be called in arrival event
-		myBus[bus_num].arrive_time.push_back(time);
+	static void bus_tracking(vector<Bus>& myBus, int bus_num, double time, bool arrive) {       //be called in arrival event
+		if(arrive == true)
+			myBus[bus_num].arrive_time.push_back(time);
+		else {
+			myBus[bus_num].depart_time.push_back(time);
+		}
 	}
 };
 
